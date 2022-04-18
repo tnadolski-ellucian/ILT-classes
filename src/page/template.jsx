@@ -1,5 +1,5 @@
 /* eslint-disable @calm/react-intl/missing-formatted-message */
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@ellucian/react-design-system/core/styles';
 import { spacing10, spacing40, borderRadiusMedium } from "@ellucian/react-design-system/core/styles/tokens";
@@ -28,12 +28,12 @@ import {
 
 import {
     allDepartments,
-    availableCourses,
-    allCourses
+    allCourses,
+    availableCourses
 } from "../utils/courses"
 
 const styles = {
-    grid: {
+    cardsGrid: {
         marginBottom: spacing40
     },
     alert: {
@@ -58,170 +58,20 @@ const styles = {
     }
 }
 
-const CoursePicker = () => {
-    return (
-        <ExpansionPanel>
-            <ExpansionPanelSummary>
-                <Typography>
-                    Filter by department
-                </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <Grid container wrap="wrap">
-                    {allDepartments().map((dept) => (
-                        <Grid item key={`${dept}`}>
-                            <TextLink
-                                component={Link}
-                                to={dept}
-                            >
-                                {dept}
-                            </TextLink>
-                        </Grid>
-                    ))}
-                </Grid>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
-    );
-}
+// for the first step, you'll be focus on creating the filter bar at the top of your page for this step
+// you're provided a static list of courses with information under utils/courses
+// we're going to setup a skeleton router, that will be used as a boiler plate for the end result
 
-const CoursesGrid = (props) => {
-    const { classes, courseInfo } = props;
-
-    const [alertContents, setAlertContents] = useState({
-        open: false,
-        message: 'default',
-        alertType: 'error'
-    });
-
-    const handleClick = (variant, course) => {
-        let message;
-        let type;
-
-        // eslint-disable-next-line default-case
-        switch (variant) {
-            case 'register':
-                message = `Registration processed for ${course.title} (${course.course}). Contact your Registrar if you need further assistance.`
-                type = 'success'
-                break;
-            case 'waitlist':
-                message = `Waitlist request has been processed for ${course.title} (${course.course}). Contact your Registrar if you need further assistance.`
-                type = 'info'
-                break;
-        }
-
-        setAlertContents({ open: true, message: message, alertType: type});
-    };
-
-    const handleClose = () => {
-        setAlertContents({ open: false });
-    }
-
-    return (
-        <Grid container className={classes.grid}>
-            {courseInfo && courseInfo.map((course, index) => (
-                <Grid item key={`card-${index}`} xs={12} sm={6} lg={3}>
-                    <Card padding={'dense'}>
-                        <CardHeader title={course.title} subheader={course.course} />
-                        <CardContent>
-                            <Typography>
-                                {course.department}
-                            </Typography>
-                            <Typography>
-                                Start date: {course.start.toDateString()}
-                            </Typography>
-                            <Typography>
-                                End date: {course.end.toDateString()}
-                            </Typography>
-                            <Typography>
-                                {course.start.toLocaleTimeString()} - {course.end.toLocaleTimeString()}
-                            </Typography>
-                        </CardContent>
-                        <CardActions id={`${index}_CardActions`}>
-                            <Button className={classes.button} onClick={() => handleClick('register', course)}>Register</Button>
-                            <Button className={classes.button} onClick={() => handleClick('waitlist', course)} color="secondary">Waitlist</Button>
-                        </CardActions>
-                    </Card>
-                </Grid>
-            ))}
-            <Alert
-                onClose={handleClose}
-                className={classes.alert}
-                alertType={alertContents.alertType}
-                open={alertContents.open}
-                text={alertContents.message}
-                variant={'page'}
-            />
-        </Grid>
-    );
-}
-
-const AllCoursesPage = (props) => {
-    const { classes } = props;
-
-    const courses = allCourses();
-
-    return (
-        <div>
-            <Typography variant="h2" className={classes.subheader}>
-                Available Courses
-            </Typography>
-            <CoursesGrid courseInfo={courses} classes={classes} />
-        </div>
-    )
-}
-
-const CoursesPage = (props) => {
-    const { classes } = props;
-
-    // useParams comes from react-router-dom
-    // https://reactrouter.com/web/api/Hooks/useparams
-    const { subject } = useParams();
-
-    const selectedSubjectCourses = availableCourses[subject];
-
-    return (
-        <div>
-            <Typography variant="h2" className={classes.subheader}>
-                {subject ? `Availables Courses for: ${subject}` : 'Available Courses'}
-            </Typography>
-            <CoursesGrid courseInfo={selectedSubjectCourses} classes={classes} />
-        </div>
-    );
-}
 
 const PageWrapper = (props) => {
     return (
         <Router basename={encodeURI(props.pageInfo.basePath)}>
-            <CoursePicker />
-            <Switch>
-                <Route exact path="/">
-                    <AllCoursesPage {...props} />
-                </Route>
-                <Route path="/:subject">
-                    <CoursesPage {...props} />
-                </Route>
-            </Switch>
         </Router>
     );
 };
 
-CoursesGrid.propTypes = {
-    classes: PropTypes.object.isRequired,
-    courseInfo: PropTypes.array.isRequired
-}
-
-AllCoursesPage.propTypes = {
-    classes: PropTypes.object.isRequired
-}
-
-CoursesPage.propTypes = {
-    classes: PropTypes.object.isRequired
-}
-
 PageWrapper.propTypes = {
-    classes: PropTypes.object.isRequired,
-    pageInfo: PropTypes.object.isRequired,
-    cardInfo: PropTypes.object.isRequired
+    pageInfo: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(PageWrapper);
