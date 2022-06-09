@@ -8,14 +8,15 @@ import {
 } from "react-router-dom";
 import Index from "./index";
 import Step1 from "./StepComplete-01";
-import Step2 from "./StepComplete-01";
-import Step3 from "./StepComplete-01";
-import Step4 from "./StepComplete-01";
-import Step5 from "./StepComplete-01";
+import Step2 from "./StepComplete-02";
+import Step3 from "./StepComplete-03";
+import Step4 from "./StepComplete-04";
+import Step5 from "./StepComplete-05";
 
 // for more information on react router: https://v5.reactrouter.com/web/guides/quick-start
 
 const RouterPage = (props) => {
+
     return (
         <Router basename={props.pageInfo.basePath}>
             <div>
@@ -26,7 +27,7 @@ const RouterPage = (props) => {
                         <Link to="/Step2">Step 2</Link> | {' '}
                         <Link to="/Step3">Step 3</Link> | {' '}
                         <Link to="/Step4">Step 4</Link> | {' '}
-                        <Link to="/Step5">Step 5</Link> | {' '}
+                        <Link to="/Step5">Step 5</Link>
                     </ul>
                 </nav>
             </div>

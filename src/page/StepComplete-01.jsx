@@ -23,7 +23,9 @@ import {
     Link,
     Route,
     Switch,
-    useParams
+    useParams,
+    withRouter,
+    useRouteMatch
 } from "react-router-dom";
 
 import {
@@ -89,8 +91,13 @@ const CoursePicker = () => {
 }
 
 const PageWrapper = (props) => {
+
+    const { path, url } = useRouteMatch();
+    console.log('url', url);
+    console.log('path', path);
+
     return (
-        <Router basename={encodeURI(props.pageInfo.basePath)}>
+        <Router basename={url}>
             <CoursePicker />
         </Router>
     );
@@ -100,4 +107,4 @@ PageWrapper.propTypes = {
     pageInfo: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(PageWrapper);
+export default withRouter(withStyles(styles)(PageWrapper));

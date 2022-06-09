@@ -23,7 +23,8 @@ import {
     Link,
     Route,
     Switch,
-    useParams
+    useParams,
+    withRouter
 } from "react-router-dom";
 
 import {
@@ -189,8 +190,11 @@ const CoursesPage = (props) => {
 }
 
 const PageWrapper = (props) => {
+
+    const { match } = props;
+
     return (
-        <Router basename={encodeURI(props.pageInfo.basePath)}>
+        <Router basename={props.pageInfo.basePath}>
             <CoursePicker />
             <Switch>
                 <Route exact path="/">
@@ -220,7 +224,8 @@ CoursesPage.propTypes = {
 PageWrapper.propTypes = {
     classes: PropTypes.object.isRequired,
     pageInfo: PropTypes.object.isRequired,
-    cardInfo: PropTypes.object.isRequired
+    cardInfo: PropTypes.object.isRequired,
+    match: PropTypes.object
 };
 
-export default withStyles(styles)(PageWrapper);
+export default withRouter(withStyles(styles)(PageWrapper));
