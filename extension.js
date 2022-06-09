@@ -13,6 +13,6 @@ module.exports = {
         }
     }],
     "page": {
-        "source": "./src/page/template.jsx"
+        "source": "./src/page/router.jsx"
     }
 }
