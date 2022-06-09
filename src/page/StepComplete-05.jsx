@@ -35,7 +35,7 @@ import {
 } from "../utils/courses"
 
 const styles = {
-    cardsGrid: {
+    grid: {
         marginBottom: spacing40
     },
     alert: {
