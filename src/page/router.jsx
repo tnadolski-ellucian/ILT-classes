@@ -4,7 +4,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import Index from "./index";
 import Step1 from "./StepComplete-01";
@@ -12,6 +13,7 @@ import Step2 from "./StepComplete-02";
 import Step3 from "./StepComplete-03";
 import Step4 from "./StepComplete-04";
 import Step5 from "./StepComplete-05";
+import Template from "./template";
 
 // for more information on react router: https://v5.reactrouter.com/web/guides/quick-start
 
@@ -22,7 +24,7 @@ const RouterPage = (props) => {
             <div>
                 <nav>
                     <ul>
-                        <Link to="/">index</Link> | {' '}
+                        <Link to="/template">Template</Link> | {' '}
                         <Link to="/Step1">Step 1</Link> | {' '}
                         <Link to="/Step2">Step 2</Link> | {' '}
                         <Link to="/Step3">Step 3</Link> | {' '}
@@ -33,7 +35,10 @@ const RouterPage = (props) => {
             </div>
             <Switch>
                 <Route exact path="/">
-                    <Index {...props} />
+                    <Redirect to="/template" />
+                </Route>
+                <Route path="/template">
+                    <Template {...props} />
                 </Route>
                 <Route path="/Step1">
                     <Step1 {...props} />

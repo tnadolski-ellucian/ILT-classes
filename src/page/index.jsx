@@ -62,8 +62,6 @@ const styles = {
 
 const CoursePicker = () => {
 
-    const { url } = useRouteMatch();
-
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary>
@@ -77,7 +75,7 @@ const CoursePicker = () => {
                         <Grid item key={`${dept}`}>
                             <TextLink
                                 component={Link}
-                                to={`${url}/${dept}`}
+                                to={dept}
                             >
                                 {dept}
                             </TextLink>
@@ -201,10 +199,10 @@ const PageWrapper = (props) => {
         <Fragment>
             <CoursePicker />
             <Switch>
-                <Route exact path={url}>
+                <Route exact path='/'>
                     <AllCoursesPage {...props} />
                 </Route>
-                <Route path={`${url}/:subject`}>
+                <Route path={`/:subject`}>
                     <CoursesPage {...props} />
                 </Route>
             </Switch>
