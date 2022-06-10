@@ -1,5 +1,5 @@
 /* eslint-disable @calm/react-intl/missing-formatted-message */
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@ellucian/react-design-system/core/styles';
 import { spacing10, spacing40, borderRadiusMedium } from "@ellucian/react-design-system/core/styles/tokens";
@@ -61,6 +61,9 @@ const styles = {
 }
 
 const CoursePicker = () => {
+
+    const { url } = useRouteMatch();
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary>
@@ -74,7 +77,7 @@ const CoursePicker = () => {
                         <Grid item key={`${dept}`}>
                             <TextLink
                                 component={Link}
-                                to={dept}
+                                to={`${url}/${dept}`}
                             >
                                 {dept}
                             </TextLink>
@@ -195,17 +198,17 @@ const PageWrapper = (props) => {
     const { url } = useRouteMatch();
 
     return (
-        <Router basename={`${props.pageInfo.basePath}${url}`}>
+        <Fragment>
             <CoursePicker />
             <Switch>
-                <Route exact path="/">
+                <Route exact path={url}>
                     <AllCoursesPage {...props} />
                 </Route>
-                <Route path="/:subject">
+                <Route path={`${url}/:subject`}>
                     <CoursesPage {...props} />
                 </Route>
             </Switch>
-        </Router>
+        </Fragment>
     );
 };
 
