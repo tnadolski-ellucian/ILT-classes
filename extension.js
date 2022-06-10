@@ -1,11 +1,11 @@
 module.exports = {
-    "name": "ILTExample2",
-    "publisher": "Sample",
+    "name": "ILTExample",
+    "publisher": "ILT",
     "cards": [{
-        "type": "ILTExampleCard2",
+        "type": "ILTExampleCard",
         "source": "./src/cards/ILTExampleCard",
-        "title": "ILTExample Card2",
-        "displayCardType": "ILTExample Card2",
+        "title": "ILTExample Card",
+        "displayCardType": "ILTExample Card",
         "description": "This is an introductory card to the Ellucian Experience SDK",
         "pageRoute": {
             "route": "/",

@@ -24,7 +24,8 @@ import {
     Route,
     Switch,
     useParams,
-    withRouter
+    withRouter,
+    useRouteMatch
 } from "react-router-dom";
 
 import {
@@ -191,10 +192,10 @@ const CoursesPage = (props) => {
 
 const PageWrapper = (props) => {
 
-    const { match } = props;
+    const { url } = useRouteMatch();
 
     return (
-        <Router basename={props.pageInfo.basePath}>
+        <Router basename={`${props.pageInfo.basePath}${url}`}>
             <CoursePicker />
             <Switch>
                 <Route exact path="/">

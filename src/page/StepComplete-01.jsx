@@ -92,12 +92,10 @@ const CoursePicker = () => {
 
 const PageWrapper = (props) => {
 
-    const { path, url } = useRouteMatch();
-    console.log('url', url);
-    console.log('path', path);
+    const { url } = useRouteMatch();
 
     return (
-        <Router basename={url}>
+        <Router basename={`${props.pageInfo.basePath}${url}`}>
             <CoursePicker />
         </Router>
     );
