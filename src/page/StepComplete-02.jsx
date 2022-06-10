@@ -95,6 +95,9 @@ const CoursesGrid = (props) => {
 }
 
 const CoursePicker = () => {
+
+    const { url } = useRouteMatch();
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary>
@@ -108,7 +111,7 @@ const CoursePicker = () => {
                         <Grid item key={`${dept}`}>
                             <TextLink
                                 component={Link}
-                                to={dept}
+                                to={`${url}/${dept}`}
                             >
                                 {dept}
                             </TextLink>
@@ -125,9 +128,7 @@ const PageWrapper = (props) => {
     const { url } = useRouteMatch();
 
     return (
-        <Router basename={`${props.pageInfo.basePath}${url}`}>
-            <CoursePicker />
-        </Router>
+        <CoursePicker />
     );
 };
 

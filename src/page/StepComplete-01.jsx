@@ -65,6 +65,9 @@ const styles = {
 // we're going to setup a skeleton router, that will be used as a boiler plate for the end result
 
 const CoursePicker = () => {
+
+    const { url } = useRouteMatch();
+
     return (
         <ExpansionPanel>
             <ExpansionPanelSummary>
@@ -78,7 +81,7 @@ const CoursePicker = () => {
                         <Grid item key={`${dept}`}>
                             <TextLink
                                 component={Link}
-                                to={dept}
+                                to={`${url}/${dept}`}
                             >
                                 {dept}
                             </TextLink>
@@ -95,9 +98,7 @@ const PageWrapper = (props) => {
     const { url } = useRouteMatch();
 
     return (
-        <Router basename={`${props.pageInfo.basePath}${url}`}>
-            <CoursePicker />
-        </Router>
+        <CoursePicker />
     );
 };
 
